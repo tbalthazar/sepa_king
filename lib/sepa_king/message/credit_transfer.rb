@@ -74,7 +74,13 @@ module SEPA
         if transaction.bic
           builder.CdtrAgt do
             builder.FinInstnId do
-              builder.BIC(transaction.bic)
+              if account.bic
+                builder.BIC(transaction.bic)
+              else
+                builder.Othr do
+                  builder.Id('NOTPROVIDED')
+                end
+              end
             end
           end
         end
