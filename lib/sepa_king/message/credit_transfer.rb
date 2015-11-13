@@ -71,15 +71,13 @@ module SEPA
         builder.Amt do
           builder.InstdAmt('%.2f' % transaction.amount, Ccy: 'EUR')
         end
-        if transaction.bic
-          builder.CdtrAgt do
-            builder.FinInstnId do
-              if account.bic
-                builder.BIC(transaction.bic)
-              else
-                builder.Othr do
-                  builder.Id('NOTPROVIDED')
-                end
+        builder.CdtrAgt do
+          builder.FinInstnId do
+            if transaction.bic
+              builder.BIC(transaction.bic)
+            else
+              builder.Othr do
+                builder.Id('NOTPROVIDED')
               end
             end
           end
